@@ -1,1 +1,127 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import SGDClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.preprocessing import StandardScaler
+
+pd.set_option('display.max_rows',None)
+
+# 设置随机种子以确保结果可重复
+np.random.seed(42)
+
+# 定义数据的大小
+num_records = 100
+
+# 生成数据
+data = {
+    'Age': np.random.randint(29, 77, size=num_records),  # 年龄在29到76岁之间
+    'Sex': np.random.randint(0, 2, size=num_records),  # 性别，0表示女性，1表示男性
+    'BloodPressure': np.random.randint(90, 180, size=num_records),  # 血压在90到179之间
+    'Cholesterol': np.random.randint(150, 300, size=num_records),  # 胆固醇在150到299之间
+    'MaxHeartRate': np.random.randint(60, 200, size=num_records),  # 最大心率在60到199之间
+    'HeartDisease': np.random.randint(0, 2, size=num_records)  # 心脏病标签，0表示无，1表示有
+}
+
+# 创建DataFrame
+df = pd.DataFrame(data)
+
+# 划分特征和标签
+X = df.drop('HeartDisease', axis=1)
+y = df['HeartDisease']
+
+# 标准化特征
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 划分训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# 训练使用梯度下降法的逻辑回归模型
+model = SGDClassifier(loss='log', max_iter=1000, tol=1e-3, random_state=42)
+model.fit(X_train, y_train)
+
+# 预测
+y_pred = model.predict(X_test)
+
+# 评估模型
+print(classification_report(y_test, y_pred))
+
+# 混淆矩阵
+cm = confusion_matrix(y_test, y_pred)
+
+# 可视化混淆矩阵
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix')
+plt.show()
+
+# 可视化特征的重要性
+coefficients = model.coef_[0]
+feature_importance = pd.Series(coefficients, index=X.columns)
+
+plt.figure(figsize=(10, 6))
+feature_importance.plot(kind='barh')
+plt.xlabel('Coefficient Value')
+plt.ylabel('Feature')
+plt.title('Feature Importance')
+plt.show()
+
+# 生成20人的新数据
+num_new_records = 20
+
+new_data = {
+    'Age': np.random.randint(29, 77, size=num_new_records),  # 年龄在29到76岁之间
+    'Sex': np.random.randint(0, 2, size=num_new_records),  # 性别，0表示女性，1表示男性
+    'BloodPressure': np.random.randint(90, 180, size=num_new_records),  # 血压在90到179之间
+    'Cholesterol': np.random.randint(150, 300, size=num_new_records),  # 胆固醇在150到299之间
+    'MaxHeartRate': np.random.randint(60, 200, size=num_new_records)  # 最大心率在60到199之间
+}
+
+# 创建新数据的DataFrame
+new_df = pd.DataFrame(new_data)
+
+# 标准化新数据
+new_X_scaled = scaler.transform(new_df)
+
+# 使用训练好的模型进行预测
+new_predictions = model.predict(new_X_scaled)
+
+# 输出新数据和预测结果
+new_df['Predicted_HeartDisease'] = new_predictions
+print(new_df)
+
+# 可视化新数据中的每个特征对预测结果的影响
+plt.figure(figsize=(10, 6))
+for i, feature in enumerate(new_df.columns[:-1]):
+    plt.subplot(2, 3, i + 1)
+    sns.scatterplot(x=new_df[feature], y=new_df['Predicted_HeartDisease'])
+    plt.xlabel(feature)
+    plt.ylabel('Predicted HeartDisease')
+
+plt.tight_layout()
+plt.show()
+
+Explanation
+Data Generation:
+Synthetic data is generated with features such as Age, Sex, BloodPressure, Cholesterol, MaxHeartRate, and a binary target HeartDisease.
+Data Preparation:
+Features and target are separated.
+Features are standardized using StandardScaler.
+Train-Test Split:
+The data is split into training and testing sets with a ratio of 80% training and 20% testing.
+Model Training:
+A logistic regression model is trained on the training data.
+Prediction and Evaluation:
+Predictions are made on the test data.
+The model's performance is evaluated using a classification report and confusion matrix.
+Visualization:
+The confusion matrix is visualized using a heatmap.
+Feature importance is visualized by plotting the coefficients of the logistic regression model.
+This script provides a comprehensive workflow from data generation to model evaluation and visualization.
+
 
