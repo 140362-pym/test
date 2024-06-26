@@ -1,4 +1,4 @@
- Age  Sex  BloodPressure  Cholesterol  MaxHeartRate  HeartDisease
+    Age  Sex  BloodPressure  Cholesterol  MaxHeartRate  HeartDisease
 0    67    1            178          203           122             1
 1    57    1            151          269           184             1
 2    43    1             90          265           117             0
