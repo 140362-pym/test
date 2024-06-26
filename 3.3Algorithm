@@ -9,24 +9,8 @@ from sklearn.preprocessing import StandardScaler
 
 pd.set_option('display.max_rows',None)
 
-# 设置随机种子以确保结果可重复
-np.random.seed(42)
-
-# 定义数据的大小
-num_records = 100
-
-# 生成数据
-data = {
-    'Age': np.random.randint(29, 77, size=num_records),  # 年龄在29到76岁之间
-    'Sex': np.random.randint(0, 2, size=num_records),  # 性别，0表示女性，1表示男性
-    'BloodPressure': np.random.randint(90, 180, size=num_records),  # 血压在90到179之间
-    'Cholesterol': np.random.randint(150, 300, size=num_records),  # 胆固醇在150到299之间
-    'MaxHeartRate': np.random.randint(60, 200, size=num_records),  # 最大心率在60到199之间
-    'HeartDisease': np.random.randint(0, 2, size=num_records)  # 心脏病标签，0表示无，1表示有
-}
-
 # 创建DataFrame
-df = pd.DataFrame(data)
+df = pd.read_excel('database1.xlsx')
 
 # 划分特征和标签
 X = df.drop('HeartDisease', axis=1)
@@ -69,6 +53,41 @@ feature_importance.plot(kind='barh')
 plt.xlabel('Coefficient Value')
 plt.ylabel('Feature')
 plt.title('Feature Importance')
+plt.show()
+
+# 生成20人的新数据
+num_new_records = 20
+
+new_data = {
+    'Age': np.random.randint(29, 77, size=num_new_records),  # 年龄在29到76岁之间
+    'Sex': np.random.randint(0, 2, size=num_new_records),  # 性别，0表示女性，1表示男性
+    'BloodPressure': np.random.randint(90, 180, size=num_new_records),  # 血压在90到179之间
+    'Cholesterol': np.random.randint(150, 300, size=num_new_records),  # 胆固醇在150到299之间
+    'MaxHeartRate': np.random.randint(60, 200, size=num_new_records)  # 最大心率在60到199之间
+}
+
+# 创建新数据的DataFrame
+new_df = pd.DataFrame(new_data)
+
+# 标准化新数据
+new_X_scaled = scaler.transform(new_df)
+
+# 使用训练好的模型进行预测
+new_predictions = model.predict(new_X_scaled)
+
+# 输出新数据和预测结果
+new_df['Predicted_HeartDisease'] = new_predictions
+print(new_df)
+
+# 可视化新数据中的每个特征对预测结果的影响
+plt.figure(figsize=(10, 6))
+for i, feature in enumerate(new_df.columns[:-1]):
+    plt.subplot(2, 3, i + 1)
+    sns.scatterplot(x=new_df[feature], y=new_df['Predicted_HeartDisease'])
+    plt.xlabel(feature)
+    plt.ylabel('Predicted HeartDisease')
+
+plt.tight_layout()
 plt.show()
 
 # 生成20人的新数据
