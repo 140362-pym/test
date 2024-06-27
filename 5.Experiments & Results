@@ -1,32 +1,31 @@
-**Introduction**
+    Age  Sex  BloodPressure  Cholesterol  MaxHeartRate 
+0    67    1            178          203           122                      
+1    57    1            151          269           184                      
+2    43    1             90          265           117                       
+3    36    0            151          262           145                       
+4    35    0            159          273            75                       
+5    72    1            175          186           128                       
+6    36    1            100          173            81                       
+7    75    1            105          242           152                       
+8    53    1            108          247           154                       
+9    35    0            137          215           105                       
+10   37    1            169          181           189
+11   52    1             92          235            94                       
+12   29    0            109          200           140 
+now we have collected those data,we will try and pridict whether those people will have a heartdisease in the future.
 
-In recent years, the intersection of artificial intelligence (AI) and healthcare has 
-revolutionized medical diagnostics and predictive modeling. Among the myriad applications, 
-cardiovascular disease (CVD) remains a leading cause of mortality worldwide, prompting intensive research 
-into advanced computational methods for early detection and risk assessment. This paper explores the application of a 
-logistic regression model trained via stochastic gradient descent (SGD) in predicting the risk of heart disease based on a 
-comprehensive set of physiological factors.
-
-
-Cardiovascular diseases encompass a spectrum of conditions affecting the heart and blood vessels, 
-with risk factors ranging from age and sex to blood pressure and cholesterol levels. Traditional 
-risk assessment methods have often relied on linear models or heuristic scoring systems, which may 
-overlook complex interactions and non-linear relationships present in the data. The integration of 
-AI techniques such as machine learning offers a promising avenue to enhance the accuracy and granularity 
-of predictive models, thereby improving clinical decision-making and patient outcomes.
-
-By leveraging large-scale datasets and sophisticated algorithms, AI enables the development of models 
-capable of learning intricate patterns from diverse patient data. The use of logistic regression, a 
-well-established statistical technique, in conjunction with SGD optimization not only facilitates robust
-model training but also allows for interpretability of the underlying predictive factors. This approach 
-not only aids in identifying individuals at higher risk of developing heart disease but also provides 
-insights into the relative importance of various risk factors in disease prediction.
-
-Furthermore, the scalability and adaptability of AI-driven models make them suitable for
-integration into clinical practice, potentially transforming how healthcare professionals 
-assess and manage cardiovascular risk. As AI continues to evolve, the synergy between computational
-methodologies and medical expertise holds promise for more personalized, efficient, and proactive healthcare strategies.
-
-In this context, this paper presents a detailed exploration of the logistic regression model's application 
-in predicting heart disease risk, illustrating its potential to augment traditional diagnostic approaches 
-and pave the way for future advancements in cardiovascular care.
+Age  Sex  BloodPressure  Cholesterol  MaxHeartRate  Predicted_HeartDisease
+0    67    1            178          203           122                       1
+1    57    1            151          269           184                       1
+2    43    1             90          265           117                       0
+3    36    0            151          262           145                       1
+4    35    0            159          273            75                       0
+5    72    1            175          186           128                       1
+6    36    1            100          173            81                       0
+7    75    1            105          242           152                       0
+8    53    1            108          247           154                       0
+9    35    0            137          215           105                       0
+10   37    1            169          181           189                       1
+11   52    1             92          235            94                       0
+12   29    0            109          200           140                       0
+that's the results.we can see from the form that some of those people may have a heart disease in the future.
