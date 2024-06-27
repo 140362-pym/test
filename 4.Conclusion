@@ -1,1 +1,21 @@
+Conclusion
 
+In this study, we employed logistic regression, implemented through stochastic gradient descent, to 
+analyze the predictors of heart disease based on a dataset of 100 patients. Through the analysis,
+we identified significant factors such as age, sex, blood pressure, cholesterol levels, and maximum 
+heart rate that contribute to the likelihood of developing heart disease. The model demonstrated robust 
+performance in predicting heart disease status, as evidenced by the evaluation metrics and the visualized confusion matrix.
+
+Furthermore, we extended our analysis to predict the likelihood of heart disease in a new dataset of 
+20 individuals, generated synthetically. By leveraging the trained model, we successfully predicted 
+the presence of heart disease in these new cases and explored the influence of each feature on the prediction outcomes through scatter plots.
+
+The findings underscore the importance of comprehensive risk factor assessment in cardiovascular 
+health management. Our approach highlights the utility of logistic regression as a practical tool 
+for understanding disease risk and informing personalized healthcare interventions. Future research 
+could expand upon this work by incorporating additional data sources and refining predictive models
+to enhance accuracy and applicability in clinical settings.
+
+Overall, this study contributes valuable insights into the application of machine 
+learning techniques for cardiovascular risk assessment and underscores the potential 
+for personalized medicine in mitigating the burden of heart disease.
